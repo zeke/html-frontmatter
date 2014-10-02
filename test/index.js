@@ -36,4 +36,8 @@ describe("html-frontmatter", function() {
     assert.equal(fm(fixtures.notAtTheTop), null)
   })
 
+  it("exposes its regex pattern as `pattern`", function(){
+    assert(fm.pattern)
+  })
+
 })

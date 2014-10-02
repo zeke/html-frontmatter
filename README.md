@@ -75,6 +75,21 @@ title: How I roll: or, the life of a wheel
 -->
 ```
 
+### Under the Hood
+
+html-frontmatter exposes the regular expression it uses to detect presence
+of frontmatter as a property named `pattern`. You can use it to
+conditionally parse frontmatter:
+
+```js
+var fm = require("html-frontmatter")
+var content = "A string that doesn't have frontmatter in it"
+if (content.match(fm.pattern)) {
+  // nope
+}
+```
+
+
 ## Tests
 
 ```sh

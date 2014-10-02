@@ -3,15 +3,15 @@
 var path = require("path")
 var fs = require("fs")
 var fmt = require("util").format
-var frontmatterPattern = new RegExp("^<!--\n([^]*)\n-->")
+var pattern = new RegExp("^<!--\n([^]*)\n-->")
 
 var parse = module.exports = function(input) {
 
-  if (!input.match(frontmatterPattern)) return
+  if (!input.match(pattern)) return
 
   var obj = {}
 
-  frontmatterPattern
+  pattern
     .exec(input)[1]
     .replace(/\n{2,}/g, "\n")  // remove excess newlines
     .replace(/\n\s{2,}/g, " ") // treat two-space indentation as a wrapped line
@@ -24,3 +24,5 @@ var parse = module.exports = function(input) {
 
   return obj
 }
+
+parse.pattern = pattern
