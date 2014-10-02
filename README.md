@@ -7,11 +7,10 @@ matter](http://en.wikipedia.org/wiki/Book_design#Front_matter) is the stuff
 at the beginning of the book like the title page, foreword, preface, table
 of contents, etc. In the world of computer programming, frontmatter is metadata at the top
 of a file. The term was (probably) popularized by the [Jekyll static site
-generator](http://jekyllrb.com/docs/frontmatter/). Jekyll's frontmatter is written in YAML,
-but we're doing something a bit simpler here: HTML comments.
+generator](http://jekyllrb.com/docs/frontmatter/).
 
-Unlike YAML frontammter, HTML frontmatter is just plain old HTML comments, so it will be
-quietly ignored and not displayed by tools/browsers that don't know about it.
+Unlike YAML frontmatter though, HTML frontmatter lives inside plain old HTML comments, so it will be
+quietly ignored by tools/browsers that don't know about it.
 
 ## Installation
 
@@ -88,5 +87,4 @@ npm test
 # ✓ handles line-wrapped values
 # ✓ cleans up excess whitespace
 # ✓ ignores comments that are not at the top of the file
-
 ```
