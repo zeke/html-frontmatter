@@ -46,9 +46,10 @@ Here's what you'll get:
 
 ```js
 {
-  title: "GitHub integration",
-  keywords: "github, git, enterprise",
-  published: "2014-10-02"
+  title: "GitHub Integration",
+  keywords: "github, git, npm, enterprise",
+  published: "2014-10-02",
+  description: "npmE works with GitHub!"
 }
 ```
 
