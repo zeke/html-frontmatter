@@ -19,7 +19,13 @@ var parse = module.exports = function(input) {
     .split("\n")
     .forEach(function(line) {
       var parts = line.split(/:(.+)?/) // split on _first_ colon
-      obj[parts[0].trim()] = parts[1].trim()
+      var key = parts[0].trim()
+      var value = parts[1].trim()
+
+      if (value === "true") value = true
+      if (value === "false") value = false
+
+      obj[key] = value
     })
 
   return obj

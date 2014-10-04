@@ -1,16 +1,17 @@
 var assert = require("assert")
 var fs = require("fs")
+var path = require("path")
 var fm = require("..")
 
-var fixtures = {
-  simple: fs.readFileSync(__dirname + "/fixtures/simple.html").toString(),
-  colonsInValues: fs.readFileSync(__dirname + "/fixtures/colons-in-values.html").toString(),
-  wrapped: fs.readFileSync(__dirname + "/fixtures/wrapped.html").toString(),
-  dirty: fs.readFileSync(__dirname + "/fixtures/dirty.html").toString(),
-  notAtTheTop: fs.readFileSync(__dirname + "/fixtures/not-at-the-top.html").toString(),
-}
+var fixtures = {}
+fs.readdirSync(__dirname + "/fixtures").forEach(function(file) {
+  var key = path.basename(file).replace(".html", "")
+  fixtures[key] = fs.readFileSync(__dirname + "/fixtures/" + file).toString()
+})
 
 describe("html-frontmatter", function() {
+
+  // Essence
 
   it("extracts metadata from colon-delimited comments at the top of an HTML string", function(){
     assert.deepEqual(fm(fixtures.simple), {foo: "bar"})
@@ -21,7 +22,7 @@ describe("html-frontmatter", function() {
   })
 
   it("handles values that contain colons", function(){
-    assert.equal(fm(fixtures.colonsInValues).title, "How I roll: or, the life of a wheel")
+    assert.equal(fm(fixtures.colons_in_values).title, "How I roll: or, the life of a wheel")
   })
 
   it("handles line-wrapped values", function(){
@@ -33,8 +34,25 @@ describe("html-frontmatter", function() {
   })
 
   it("ignores comments that are not at the top of the file", function(){
-    assert.equal(fm(fixtures.notAtTheTop), null)
+    assert.equal(fm(fixtures.not_at_the_top), null)
   })
+
+  // Coercion
+
+  it("coerces boolean strings into booleans", function(){
+    assert.deepEqual(fm(fixtures.boolean), {good: true, bad: false})
+  })
+
+  it("coerces numeric strings into numbers (for free)", function(){
+    assert.deepEqual(fm(fixtures.numeric), {
+      integral: 10000000,
+      decimal: 3.1415,
+      negative: -100,
+      stringy: "I am not a number"
+    })
+  })
+
+  // Convenience
 
   it("exposes its regex pattern as `pattern`", function(){
     assert(fm.pattern)
