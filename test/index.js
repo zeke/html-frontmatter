@@ -44,12 +44,11 @@ describe("html-frontmatter", function() {
   })
 
   it("coerces numeric strings into numbers (for free)", function(){
-    assert.deepEqual(fm(fixtures.numeric), {
-      integral: 10000000,
-      decimal: 3.1415,
-      negative: -100,
-      stringy: "I am not a number"
-    })
+    var n = fm(fixtures.numeric)
+    assert.equal(n.integral, 10000000)
+    assert.equal(n.decimal, 3.1415)
+    assert.equal(n.negative, -100)
+    assert.equal(n.stringy, "I am not a number")
   })
 
   // Convenience

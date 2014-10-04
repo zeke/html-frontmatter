@@ -76,6 +76,11 @@ title: How I roll: or, the life of a wheel
 -->
 ```
 
+### Coercion
+
+- Boolean "true" and "false" strings are converted to booleans.
+- Numeric strings are converted to numbers.
+
 ### Under the Hood
 
 html-frontmatter exposes the regular expression it uses to detect presence
