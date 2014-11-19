@@ -37,6 +37,10 @@ describe("html-frontmatter", function() {
     assert.equal(fm(fixtures.not_at_the_top), null)
   })
 
+  it("allows newlines before comments", function(){
+    assert.deepEqual(fm(fixtures.preceding_whitespace), {foo: "bar"})
+  })
+
   // Coercion
 
   it("coerces boolean strings into booleans", function(){
