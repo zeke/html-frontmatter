@@ -18,7 +18,9 @@ var parse = module.exports = function(input) {
     .replace(/\s{2,}/g, " ")   // remove excess spaces
     .split("\n")
     .forEach(function(line) {
+      if (line.match(/^\s?#/)) return  // ignore lines starting with #
       var parts = line.split(/:(.+)?/) // split on _first_ colon
+      if (parts.length < 2) return     // key: value pair is required
       var key = parts[0].trim()
       var value = parts[1].trim()
 

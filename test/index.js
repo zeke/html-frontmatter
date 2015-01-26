@@ -41,6 +41,10 @@ describe("html-frontmatter", function() {
     assert.deepEqual(fm(fixtures.preceding_whitespace), {foo: "bar"})
   })
 
+  it("ignores comment lines starting with hashes (#)", function(){
+    assert(fm(fixtures.cordova))
+  })
+
   // Coercion
 
   it("coerces boolean strings into booleans", function(){
