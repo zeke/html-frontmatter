@@ -61,4 +61,10 @@ describe("html-frontmatter", function() {
     assert(fm.pattern)
   })
 
+  // Regressions
+
+  it("handles HTML comments that contain the pound symbol", function() {
+    assert.deepEqual(fm(fixtures.pound_comments), {})
+  })
+
 })

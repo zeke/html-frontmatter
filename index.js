@@ -19,6 +19,9 @@ var parse = module.exports = function(input) {
     .split("\n")
     .forEach(function(line) {
       var parts = line.split(/:(.+)?/) // split on _first_ colon
+
+      if (parts.length < 2) return
+
       var key = parts[0].trim()
       var value = parts[1].trim()
 
