@@ -65,4 +65,8 @@ describe("html-frontmatter", function() {
     assert(fm.pattern)
   })
 
+  it('handles missing right-hand-value', function() {
+    assert.deepEqual(fm(fixtures.undefined), {demobox: ""})
+  })
+
 })
