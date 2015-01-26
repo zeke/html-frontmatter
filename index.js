@@ -21,8 +21,8 @@ var parse = module.exports = function(input) {
       if (line.match(/^\s?#/)) return  // ignore lines starting with #
       var parts = line.split(/:(.+)?/) // split on _first_ colon
       if (parts.length < 2) return     // key: value pair is required
-      var key = parts[0].trim()
-      var value = parts[1].trim()
+      var key = (parts[0] || '').trim()
+      var value = (parts[1] || '').trim()
 
       if (value === "true") value = true
       if (value === "false") value = false
