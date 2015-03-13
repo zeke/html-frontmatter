@@ -3,7 +3,7 @@
 var path = require("path")
 var fs = require("fs")
 var fmt = require("util").format
-var pattern = new RegExp("^\n*<!--\n([^]*)\n-->")
+var pattern = new RegExp("^\n*<!--\n?([^]*)\n?-->")
 
 var parse = module.exports = function(input) {
 

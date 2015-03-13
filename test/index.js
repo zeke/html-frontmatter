@@ -45,6 +45,10 @@ describe("html-frontmatter", function() {
     assert(fm(fixtures.cordova))
   })
 
+  it("allows single-line comments", function(){
+    assert.deepEqual(fm(fixtures.single_line), {foo: "bar"})
+  })
+
   // Coercion
 
   it("coerces boolean strings into booleans", function(){
