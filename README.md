@@ -39,7 +39,7 @@ And code like this:
 
 ```js
 var fm = require("html-frontmatter")
-var frontmatter = fm(fs.readFileSync("github.md").toString())
+var frontmatter = fm(fs.readFileSync("github.md", "utf-8"))
 ```
 
 Here's what you'll get:
