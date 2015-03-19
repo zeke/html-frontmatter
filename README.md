@@ -105,7 +105,7 @@ And will return:
 
 ```js
 {
-  title: This post has tags,
+  title: "This post has tags",
   tags: [100, 'this is a string', true]
 }
 ```
