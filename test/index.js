@@ -55,12 +55,12 @@ describe("html-frontmatter", function() {
     assert.deepEqual(fm(fixtures.boolean), {good: true, bad: false})
   })
 
-  it("coerces numeric strings into numbers (for free)", function(){
+  it("coerces numeric strings into numbers", function(){
     var n = fm(fixtures.numeric)
-    assert.equal(n.integral, 10000000)
-    assert.equal(n.decimal, 3.1415)
-    assert.equal(n.negative, -100)
-    assert.equal(n.stringy, "I am not a number")
+    assert.strictEqual(n.integral, 10000000)
+    assert.strictEqual(n.decimal, 3.1415)
+    assert.strictEqual(n.negative, -100)
+    assert.strictEqual(n.stringy, "I am not a number")
   })
 
   // Convenience
@@ -71,6 +71,15 @@ describe("html-frontmatter", function() {
 
   it('handles missing right-hand-value', function() {
     assert.deepEqual(fm(fixtures.undefined), {demobox: ""})
+  })
+
+  // Arrays
+
+  it("handles shallow arrays", function(){
+    var n = fm(fixtures.arrays)
+    assert.deepEqual(n.flow, ['one', 'two'])
+    assert.deepEqual(n.spanning, ['one', 'two', 'three'])
+    assert.deepEqual(n.coercion, [ 1, 'I am not a number', false, true ])
   })
 
 })
