@@ -73,4 +73,13 @@ describe("html-frontmatter", function() {
     assert.deepEqual(fm(fixtures.undefined), {demobox: ""})
   })
 
+  // Arrays
+
+  it("handles shallow arrays", function(){
+    var n = fm(fixtures.arrays)
+    assert.deepEqual(n.flow, ['one', 'two'])
+    assert.deepEqual(n.spanning, ['one', 'two', 'three'])
+    assert.deepEqual(n.coercion, [ 1, 'I am not a number', false, true ])
+  })
+
 })

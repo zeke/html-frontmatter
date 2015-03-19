@@ -24,14 +24,27 @@ var parse = module.exports = function(input) {
       var key = (parts[0] || '').trim()
       var value = (parts[1] || '').trim()
 
-      if (value === "true") value = true
-      if (value === "false") value = false
+      value = coerceValue(value)
 
-      var num = +value // resolves to number or NaN
-      if (num) value = num
+      if (value[0] === '[' && value[value.length -1] === ']') {
+        value = value.substring(1, value.length -1).trim().split(/\s*\,\s*/).map(function (val) {
+          return coerceValue(val)
+        })
+      }
 
       obj[key] = value
     })
+
+  function coerceValue(value) {
+
+    if (value === "true") return true
+    if (value === "false") return false
+
+    var num = +value
+    if (num) return num
+
+    return value
+  }
 
   return obj
 }
