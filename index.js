@@ -27,6 +27,9 @@ var parse = module.exports = function(input) {
       if (value === "true") value = true
       if (value === "false") value = false
 
+      var num = +value // resolves to number or NaN
+      if (num) value = num
+
       obj[key] = value
     })
 

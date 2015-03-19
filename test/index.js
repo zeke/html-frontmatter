@@ -55,7 +55,7 @@ describe("html-frontmatter", function() {
     assert.deepEqual(fm(fixtures.boolean), {good: true, bad: false})
   })
 
-  it("coerces numeric strings into numbers (for free)", function(){
+  it("coerces numeric strings into numbers", function(){
     var n = fm(fixtures.numeric)
     assert.strictEqual(n.integral, 10000000)
     assert.strictEqual(n.decimal, 3.1415)
