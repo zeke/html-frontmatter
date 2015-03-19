@@ -76,6 +76,40 @@ title: How I roll: or, the life of a wheel
 -->
 ```
 
+### Array Values
+
+Your values can include shallow arrays
+
+```html
+<!--
+title: This post has tags
+tags: [100, this is a string, true]
+-->
+```
+
+Is equivalent to:
+
+```html
+<!--
+title: This post has tags
+tags: [
+  100,
+  this is a string,
+  true
+  ]
+# note: the closing bracket of an array must be indented by 2 spaces or more
+-->
+```
+
+And will return:
+
+```js
+{
+  title: This post has tags,
+  tags: [100, 'this is a string', true]
+}
+```
+
 ### Coercion
 
 - Boolean "true" and "false" strings are converted to booleans.
