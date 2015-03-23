@@ -49,6 +49,10 @@ describe("html-frontmatter", function() {
     assert.deepEqual(fm(fixtures.single_line), {foo: "bar"})
   })
 
+  it("does not include additional comments", function(){
+    assert.deepEqual(fm(fixtures.multi_comment), { foo: "bar" })
+  })
+
   // Coercion
 
   it("coerces boolean strings into booleans", function(){
