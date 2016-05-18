@@ -1,34 +1,30 @@
 #!/usr/bin/env node
 
-var path = require("path")
-var fs = require("fs")
-var dateutil = require("dateutil")
-var fmt = require("util").format
-var pattern = new RegExp("^\n*<!--([^]*?)-->")
+const dateutil = require('dateutil')
+const pattern = new RegExp('^\n*<!--([^]*?)-->') // eslint-disable-line
 
-var parse = module.exports = function(input) {
-
+const parse = module.exports = function parse (input) {
   if (!input.match(pattern)) return
 
   var obj = {}
 
   pattern
     .exec(input)[1]
-    .replace(/\n{2,}/g, "\n")  // remove excess newlines
-    .replace(/\n\s{2,}/g, " ") // treat two-space indentation as a wrapped line
-    .replace(/\s{2,}/g, " ")   // remove excess spaces
-    .split("\n")
-    .forEach(function(line) {
-      if (line.match(/^\s?#/)) return  // ignore lines starting with #
+    .replace(/\n{2,}/g, '\n') // remove excess newlines
+    .replace(/\n\s{2,}/g, ' ') // treat two-space indentation as a wrapped line
+    .replace(/\s{2,}/g, ' ') // remove excess spaces
+    .split('\n')
+    .forEach(function (line) {
+      if (line.match(/^\s?#/)) return // ignore lines starting with #
       var parts = line.split(/:(.+)?/) // split on _first_ colon
-      if (parts.length < 2) return     // key: value pair is required
+      if (parts.length < 2) return // key: value pair is required
       var key = (parts[0] || '').trim()
       var value = (parts[1] || '').trim()
 
       value = coerceValue(value)
 
-      if (value[0] === '[' && value[value.length -1] === ']') {
-        value = value.substring(1, value.length -1).trim().split(/\s*\,\s*/).map(function (val) {
+      if (value[0] === '[' && value[value.length - 1] === ']') {
+        value = value.substring(1, value.length - 1).trim().split(/\s*,\s*/).map(function (val) {
           return coerceValue(val)
         })
       }
@@ -36,20 +32,19 @@ var parse = module.exports = function(input) {
       obj[key] = value
     })
 
-  function coerceValue(value) {
-
+  function coerceValue (value) {
     // boolean
-    if (value === "true") return true
-    if (value === "false") return false
+    if (value === 'true') return true
+    if (value === 'false') return false
 
     // date (within 200 years of today's date)
     var date = dateutil.parse(value)
-    if (date.type != 'unknown_date') {
+    if (date.type !== 'unknown_date') {
       delete date.type
       delete date.size
       var now = new Date().getFullYear()
       var then = date.getFullYear()
-      if (Math.abs(now-then) < 200) return date
+      if (Math.abs(now - then) < 200) return date
     }
 
     // number

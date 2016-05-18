@@ -4,7 +4,7 @@
   "description": "Extract key-value metadata from HTML comments",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha && standard"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,15 @@
   },
   "homepage": "https://github.com/zeke/html-frontmatter",
   "devDependencies": {
-    "mocha": "^1.21.4"
+    "mocha": "^1.21.4",
+    "standard": "^7.1.0"
   },
   "dependencies": {
     "dateutil": "^0.1.0"
+  },
+  "standard": {
+    "env": {
+      "mocha": true
+    }
   }
 }

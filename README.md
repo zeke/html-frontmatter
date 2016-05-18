@@ -38,8 +38,8 @@ description: npmE works with GitHub!
 And code like this:
 
 ```js
-var fm = require("html-frontmatter")
-var frontmatter = fm(fs.readFileSync("github.md", "utf-8"))
+var fm = require('html-frontmatter')
+var frontmatter = fm(fs.readFileSync('github.md', 'utf-8'))
 ```
 
 Here's what you'll get:
@@ -124,7 +124,7 @@ of frontmatter as a property named `pattern`. You can use it to
 conditionally parse frontmatter:
 
 ```js
-var fm = require("html-frontmatter")
+var fm = require('html-frontmatter')
 var content = "A string that doesn't have frontmatter in it"
 if (content.match(fm.pattern)) {
   // nope
