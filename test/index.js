@@ -55,16 +55,28 @@ describe("html-frontmatter", function() {
 
   // Coercion
 
-  it("coerces boolean strings into booleans", function(){
+  it("coerces boolean strings into Booleans", function(){
     assert.deepEqual(fm(fixtures.boolean), {good: true, bad: false})
   })
 
-  it("coerces numeric strings into numbers", function(){
+  it("coerces numeric strings into Numbers", function(){
     var n = fm(fixtures.numeric)
     assert.strictEqual(n.integral, 10000000)
     assert.strictEqual(n.decimal, 3.1415)
     assert.strictEqual(n.negative, -100)
     assert.strictEqual(n.stringy, "I am not a number")
+  })
+
+  it("coerces YMD-ish date strings into Dates", function(){
+    var n = fm(fixtures.dates)
+    assert.strictEqual(n.date1.getFullYear(), 2012)
+    assert.strictEqual(n.date1.getMonth(), 4)
+    assert.strictEqual(n.date1.getDate(), 31)
+    assert.strictEqual(n.date2.getFullYear(), 2012)
+    assert.strictEqual(n.date3.getFullYear(), 2012)
+    assert.strictEqual(n.not_a_date1, 200)
+    assert.strictEqual(n.not_a_date2, 'cheese')
+    assert.strictEqual(n.not_a_date3, '2015 people')
   })
 
   // Convenience

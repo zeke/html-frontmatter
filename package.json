@@ -24,5 +24,8 @@
   "homepage": "https://github.com/zeke/html-frontmatter",
   "devDependencies": {
     "mocha": "^1.21.4"
+  },
+  "dependencies": {
+    "dateutil": "^0.1.0"
   }
 }

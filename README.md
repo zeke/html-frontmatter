@@ -48,7 +48,7 @@ Here's what you'll get:
 {
   title: "GitHub Integration",
   keywords: "github, git, npm, enterprise",
-  published: "2014-10-02",
+  published: "Wed Oct 01 2014 17:00:00 GMT-0700 (PDT)",
   description: "npmE works with GitHub!"
 }
 ```
@@ -112,8 +112,10 @@ And will return:
 
 ### Coercion
 
-- Boolean "true" and "false" strings are converted to booleans.
-- Numeric strings are converted to numbers.
+- Boolean "true" and "false" strings are converted to Boolean.
+- Numeric strings are converted to Number.
+- Strings in [YMD-ish format](https://github.com/borgar/dateutil#dateutilparse-string-)
+are converted to Date objects.
 
 ### Under the Hood
 

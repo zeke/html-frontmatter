@@ -2,6 +2,7 @@
 
 var path = require("path")
 var fs = require("fs")
+var dateutil = require("dateutil")
 var fmt = require("util").format
 var pattern = new RegExp("^\n*<!--([^]*?)-->")
 
@@ -37,9 +38,21 @@ var parse = module.exports = function(input) {
 
   function coerceValue(value) {
 
+    // boolean
     if (value === "true") return true
     if (value === "false") return false
 
+    // date (within 200 years of today's date)
+    var date = dateutil.parse(value)
+    if (date.type != 'unknown_date') {
+      delete date.type
+      delete date.size
+      var now = new Date().getFullYear()
+      var then = date.getFullYear()
+      if (Math.abs(now-then) < 200) return date
+    }
+
+    // number
     var num = +value
     if (num) return num
 
