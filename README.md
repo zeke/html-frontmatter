@@ -144,4 +144,14 @@ npm test
 # ✓ handles line-wrapped values
 # ✓ cleans up excess whitespace
 # ✓ ignores comments that are not at the top of the file
+# ✓ allows newlines before comments
+# ✓ ignores comment lines starting with hashes (#)
+# ✓ allows single-line comments
+# ✓ does not include additional comments
+# ✓ coerces boolean strings into Booleans
+# ✓ coerces numeric strings into Numbers
+# ✓ coerces YMD-ish date strings into Dates
+# ✓ exposes its regex pattern as `pattern`
+# ✓ handles missing right-hand-value
+# ✓ handles shallow arrays
 ```
