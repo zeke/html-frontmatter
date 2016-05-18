@@ -17,7 +17,7 @@
     "metadata"
   ],
   "author": "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zeke/html-frontmatter/issues"
   },
