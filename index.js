@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const dateutil = require('dateutil')
-const pattern = new RegExp('^\n*<!--([^]*?)-->') // eslint-disable-line
+const pattern = new RegExp('^(?:\r\n?|\n)*<!--([^]*?)-->') // eslint-disable-line
 
 const parse = module.exports = function parse (input) {
   if (!input.match(pattern)) return
@@ -10,9 +10,9 @@ const parse = module.exports = function parse (input) {
 
   pattern
     .exec(input)[1]
-    .replace(/\n{2,}/g, '\n') // remove excess newlines
-    .replace(/\n\s{2,}/g, ' ') // treat two-space indentation as a wrapped line
-    .replace(/\s{2,}/g, ' ') // remove excess spaces
+    .replace(/(\r\n?|\n){2,}/g, '\n') // remove excess newlines
+    .replace(/(\r\n?|\n) {2,}/g, ' ') // treat two-space indentation as a wrapped line
+//    .replace(/[ \t]{2,}/g, ' ') // remove excess spaces or tabs (but no new lines)
     .split('\n')
     .forEach(function (line) {
       if (line.match(/^\s?#/)) return // ignore lines starting with #
