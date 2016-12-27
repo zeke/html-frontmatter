@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/zeke/html-frontmatter",
   "devDependencies": {
-    "mocha": "^1.21.4",
+    "mocha": "^3.2.0",
     "standard": "^7.1.0"
   },
   "dependencies": {
