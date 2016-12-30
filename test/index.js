@@ -96,4 +96,15 @@ describe('html-frontmatter', function () {
     assert.deepEqual(n.spanning, ['one', 'two', 'three'])
     assert.deepEqual(n.coercion, [ 1, 'I am not a number', false, true ])
   })
+
+  it('handles JSON objects inside arrays', function () {
+    var n = fm(fixtures.arrays)
+    assert.deepEqual(n.simpleJSON, [{name: 'John'}])
+    assert.deepEqual(n.commonJSON,
+      [
+        {name: 'John', age: 13, working: false},
+        {name: 'Mary', age: 25, working: true},
+        {name: 'Paul', age: 40, working: true}
+      ])
+  })
 })

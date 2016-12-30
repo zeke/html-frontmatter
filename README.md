@@ -110,6 +110,39 @@ And will return:
 }
 ```
 
+Also accepts JSON style syntax (only inside arrays):
+
+```html
+<!--
+title: This post has tags
+tags: [
+  100,
+  this is a string,
+  true
+  ]
+# note: the closing bracket of an array must be indented by 2 spaces or more
+persons: [
+    {"name": "John", "age": 13, "working": false},
+    {"name": "Mary", "age": 25, "working": true},
+    {"name": "Paul", "age": 40, "working": true}
+  ]
+-->
+```
+
+And will return:
+
+```js
+{
+  title: "This post has tags",
+  tags: [100, 'this is a string', true],
+  persons: [
+    {name: 'John', age: 13, working: false},
+    {name: 'Mary', age: 25, working: true},
+    {name: 'Paul', age: 40, working: true}
+  ]
+}
+```
+
 ### Coercion
 
 - Boolean "true" and "false" strings are converted to Boolean.
@@ -154,4 +187,5 @@ npm test
 # ✓ exposes its regex pattern as `pattern`
 # ✓ handles missing right-hand-value
 # ✓ handles shallow arrays
+# ✓ handles JSON objects inside arrays
 ```

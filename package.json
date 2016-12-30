@@ -1,6 +1,6 @@
 {
   "name": "html-frontmatter",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Extract key-value metadata from HTML comments",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,8 @@
     "standard": "^7.1.0"
   },
   "dependencies": {
-    "dateutil": "^0.1.0"
+    "dateutil": "^0.1.0",
+    "lodash": "^4.17.3"
   },
   "standard": {
     "env": {

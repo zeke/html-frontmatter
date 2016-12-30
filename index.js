@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 const dateutil = require('dateutil')
-const pattern = new RegExp('^(?:\r\n?|\n)*<!--([^]*?)-->') // eslint-disable-line
+const isError = require('lodash').isError
+const attempt = require('lodash').attempt
+const pattern =
+  new RegExp('^(?:\r\n?|\n)*<!--([^]*?)-->') // eslint-disable-line
 
 const parse = module.exports = function parse (input) {
   if (!input.match(pattern)) return
@@ -11,8 +14,7 @@ const parse = module.exports = function parse (input) {
   pattern
     .exec(input)[1]
     .replace(/(\r\n?|\n){2,}/g, '\n') // remove excess newlines
-    .replace(/(\r\n?|\n) {2,}/g, ' ') // treat two-space indentation as a wrapped line
-//    .replace(/[ \t]{2,}/g, ' ') // remove excess spaces or tabs (but no new lines)
+    .replace(/(\r\n?|\n) {2,}/g, ' ') // two-space indentation as a wrapped line
     .split('\n')
     .forEach(function (line) {
       if (line.match(/^\s?#/)) return // ignore lines starting with #
@@ -23,13 +25,27 @@ const parse = module.exports = function parse (input) {
 
       value = coerceValue(value)
 
+      // if brakets then is an array of values that need to be parsed
       if (value[0] === '[' && value[value.length - 1] === ']') {
-        value = value.substring(1, value.length - 1).trim().split(/\s*,\s*/).map(function (val) {
-          return coerceValue(val)
-        })
+        // initially just parsing it as an array of strings
+        var parsedValue =
+        value.substring(1, value.length - 1) // get rid off the brackets
+          .trim()
+          .split(/\s*,\s*/) // ignore irrelevant spaces and split on commas
+          .map(function (val) {
+            return coerceValue(val)
+          })
+
+        // TODO: Add here a YAML or other parsers like JSON below
+
+        // if a JSON value can be parsed then improve it using JSON.parse
+        var wrapValue = '{"array":' + value + '}' // wrap value to try JSON
+        if (!isError(attempt(JSON.parse.bind(null, wrapValue)))) {
+          parsedValue = JSON.parse(wrapValue).array
+        }
       }
 
-      obj[key] = value
+      obj[key] = parsedValue || value
     })
 
   function coerceValue (value) {
