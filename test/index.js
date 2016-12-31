@@ -98,8 +98,8 @@ describe('html-frontmatter', function () {
   })
 
   it('handles JSON objects inside arrays', function () {
-    var n = fm(fixtures.arrays)
-    assert.deepEqual(n.simpleJSON, [{name: 'John'}])
+    var n = fm(fixtures.arraysJSON)
+//    assert.deepEqual(n.simpleJSON, {simpleJSON: {name: 'John'}})
     assert.deepEqual(n.commonJSON,
       [
         {name: 'John', age: 13, working: false},

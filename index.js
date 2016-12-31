@@ -1,52 +1,50 @@
 #!/usr/bin/env node
 
+const attempt = require('lodash').attempt
 const dateutil = require('dateutil')
 const isError = require('lodash').isError
-const attempt = require('lodash').attempt
+const yaml = require('js-yaml')
 const pattern =
   new RegExp('^(?:\r\n?|\n)*<!--([^]*?)-->') // eslint-disable-line
 
 const parse = module.exports = function parse (input) {
-  if (!input.match(pattern)) return
+  if (!input.match(pattern)) return // no html comments on top of file found
 
-  var obj = {}
+  var obj
 
-  pattern
-    .exec(input)[1]
-    .replace(/(\r\n?|\n){2,}/g, '\n') // remove excess newlines
-    .replace(/(\r\n?|\n) {2,}/g, ' ') // two-space indentation as a wrapped line
-    .split('\n')
-    .forEach(function (line) {
-      if (line.match(/^\s?#/)) return // ignore lines starting with #
-      var parts = line.split(/:(.+)?/) // split on _first_ colon
-      if (parts.length < 2) return // key: value pair is required
-      var key = (parts[0] || '').trim()
-      var value = (parts[1] || '').trim()
+  var textToBeParsed = pattern.exec(input)[1]
+  if (!isError(attempt(yaml.safeLoad.bind(null, textToBeParsed)))) {
+    obj = yaml.safeLoad(textToBeParsed)
+    if(obj == null) obj = true // hack to copy alternate parser behaivor
+  } else {
+    obj = {}
+    textToBeParsed
+      .replace(/(\r\n?|\n){2,}/g, '\n') // remove excess newlines
+      .replace(/(\r\n?|\n) {2,}/g, ' ') // two-space indentation as a wrapped line
+      .split('\n')
+      .forEach(function (line) {
+        if (line.match(/^\s?#/)) return // ignore lines starting with #
+        var parts = line.split(/:(.+)?/) // split on _first_ colon
+        if (parts.length < 2) return // key: value pair is required
+        var key = (parts[0] || '').trim()
+        var value = (parts[1] || '').trim()
 
-      value = coerceValue(value)
+        value = coerceValue(value)
 
-      // if brakets then is an array of values that need to be parsed
-      if (value[0] === '[' && value[value.length - 1] === ']') {
-        // initially just parsing it as an array of strings
-        var parsedValue =
-        value.substring(1, value.length - 1) // get rid off the brackets
-          .trim()
-          .split(/\s*,\s*/) // ignore irrelevant spaces and split on commas
-          .map(function (val) {
-            return coerceValue(val)
-          })
-
-        // TODO: Add here a YAML or other parsers like JSON below
-
-        // if a JSON value can be parsed then improve it using JSON.parse
-        var wrapValue = '{"array":' + value + '}' // wrap value to try JSON
-        if (!isError(attempt(JSON.parse.bind(null, wrapValue)))) {
-          parsedValue = JSON.parse(wrapValue).array
+        // if brackets then is an array of values that need to be parsed
+        if (value[0] === '[' && value[value.length - 1] === ']') {
+          var value =
+          value.substring(1, value.length - 1) // get rid off the brackets
+            .trim()
+            .split(/\s*,\s*/) // ignore irrelevant spaces and split on commas
+            .map(function (val) {
+              return coerceValue(val)
+            })
         }
-      }
 
-      obj[key] = parsedValue || value
-    })
+        obj[key] = value
+      })
+  }
 
   function coerceValue (value) {
     // boolean
