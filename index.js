@@ -6,6 +6,8 @@ const isError = require('lodash').isError
 const yaml = require('js-yaml')
 const pattern =
   new RegExp('^(?:\r\n?|\n)*<!--([^]*?)-->') // eslint-disable-line
+const likeYamlPattern =
+  new RegExp('(?:\n- )|(?:\n  - )')  // eslint-disable-line
 
 const parse = module.exports = function parse (input) {
   if (!input.match(pattern)) return // no html comments on top of file found
@@ -13,9 +15,10 @@ const parse = module.exports = function parse (input) {
   var obj
 
   var textToBeParsed = pattern.exec(input)[1]
-  if (!isError(attempt(yaml.safeLoad.bind(null, textToBeParsed)))) {
+  if (input.match(likeYamlPattern) &&  // found possible valid YAML syntax and
+      !isError(attempt(yaml.safeLoad.bind(null, textToBeParsed)))) { // is valid
     obj = yaml.safeLoad(textToBeParsed)
-    if(obj == null) obj = true // hack to copy alternate parser behaivor
+//    if(obj == null) obj = true // hack to copy alternate parser behaivor
   } else {
     obj = {}
     textToBeParsed
@@ -33,7 +36,7 @@ const parse = module.exports = function parse (input) {
 
         // if brackets then is an array of values that need to be parsed
         if (value[0] === '[' && value[value.length - 1] === ']') {
-          var value =
+          value =
           value.substring(1, value.length - 1) // get rid off the brackets
             .trim()
             .split(/\s*,\s*/) // ignore irrelevant spaces and split on commas
