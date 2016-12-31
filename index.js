@@ -7,7 +7,7 @@ const yaml = require('js-yaml')
 const pattern =
   new RegExp('^(?:\r\n?|\n)*<!--([^]*?)-->') // eslint-disable-line
 const likeYamlPattern =
-  new RegExp('(?:\n- )|(?:\n  - )')  // eslint-disable-line
+  new RegExp('(?:\r\n?|\n)*.*: *(?:#.*)?(?:\r\n?|\n)+ *- ')  // eslint-disable-line
 
 const parse = module.exports = function parse (input) {
   if (!input.match(pattern)) return // no html comments on top of file found

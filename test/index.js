@@ -97,14 +97,16 @@ describe('html-frontmatter', function () {
     assert.deepEqual(n.coercion, [ 1, 'I am not a number', false, true ])
   })
 
-  it('handles JSON objects inside arrays', function () {
-    var n = fm(fixtures.arraysJSON)
-//    assert.deepEqual(n.simpleJSON, {simpleJSON: {name: 'John'}})
-    assert.deepEqual(n.commonJSON,
-      [
+  it('handles objects inside arrays using YAML syntax', function () {
+    var n = fm(fixtures.arraysYAML)
+    assert.deepEqual(n.commonYAML, [
         {name: 'John', age: 13, working: false},
         {name: 'Mary', age: 25, working: true},
         {name: 'Paul', age: 40, working: true}
-      ])
+    ])
+    assert.deepEqual(n.looselySpaced, [
+        { foo: 'bar' },
+        { baz: 'bar' }
+    ])
   })
 })
