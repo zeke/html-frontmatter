@@ -110,6 +110,37 @@ And will return:
 }
 ```
 
+### Objects
+
+You can include Objects with an Array of any Objects if using valid YAML. Here is a handy online [syntax tester](http://yaml-online-parser.appspot.com/).
+
+```html
+<!--
+persons:
+- name: John
+  age: 13
+  working: false
+- name: Mary
+  age: 25
+  working: true
+- name: Paul
+  age: 40
+  working: true
+-->
+```
+
+You will get:
+
+```js
+{
+  persons: [
+    {name: 'John', age: 13, working: false},
+    {name: 'Mary', age: 25, working: true},
+    {name: 'Paul', age: 40, working: true}
+  ]
+}
+```
+
 ### Coercion
 
 - Boolean "true" and "false" strings are converted to Boolean.
@@ -154,4 +185,5 @@ npm test
 # ✓ exposes its regex pattern as `pattern`
 # ✓ handles missing right-hand-value
 # ✓ handles shallow arrays
+# ✓ handles objects inside arrays using YAML syntax
 ```

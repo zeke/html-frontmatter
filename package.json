@@ -27,7 +27,9 @@
     "standard": "^7.1.0"
   },
   "dependencies": {
-    "dateutil": "^0.1.0"
+    "dateutil": "^0.1.0",
+    "js-yaml": "^3.7.0",
+    "lodash": "^4.17.3"
   },
   "standard": {
     "env": {
