@@ -110,31 +110,28 @@ And will return:
 }
 ```
 
-Also accepts JSON style syntax (only inside arrays):
+### Objects
+
+You can include any Object in valid YAML (online [syntax test](http://yaml-online-parser.appspot.com/)).
 
 ```html
 <!--
-title: This post has tags
-tags: [
-  100,
-  this is a string,
-  true
-  ]
-# note: the closing bracket of an array must be indented by 2 spaces or more
-persons: [
-    {"name": "John", "age": 13, "working": false},
-    {"name": "Mary", "age": 25, "working": true},
-    {"name": "Paul", "age": 40, "working": true}
-  ]
--->
+persons:
+- name: John
+  age: 13
+  working: false
+- name: Mary
+  age: 25
+  working: true
+- name: Paul
+  age: 40
+  working: true
 ```
 
-And will return:
+You will get:
 
 ```js
 {
-  title: "This post has tags",
-  tags: [100, 'this is a string', true],
   persons: [
     {name: 'John', age: 13, working: false},
     {name: 'Mary', age: 25, working: true},
