@@ -185,5 +185,5 @@ npm test
 # ✓ exposes its regex pattern as `pattern`
 # ✓ handles missing right-hand-value
 # ✓ handles shallow arrays
-# ✓ handles JSON objects inside arrays
+# ✓ handles objects inside arrays using YAML syntax
 ```
