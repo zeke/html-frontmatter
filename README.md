@@ -112,7 +112,7 @@ And will return:
 
 ### Objects
 
-You can include any Object in valid YAML (online [syntax test](http://yaml-online-parser.appspot.com/)).
+You can include Objects with an Array of any Objects if using valid YAML. Here is a handy online [syntax tester](http://yaml-online-parser.appspot.com/).
 
 ```html
 <!--
