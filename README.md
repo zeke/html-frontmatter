@@ -1,4 +1,11 @@
-# HTML Frontmatter
+# HTML Frontmatter Mini
+
+This is a "mini" version of [html-frontmatter](https://github.com/zeke/html-frontmatter) meant for client side use.
+
+
+## Differences from the original:
+- dateutil dependency and YMD-ish string formatting was removed
+- an transpiled es5 dist version was added
 
 Extract key-value metadata from HTML comments
 
@@ -17,7 +24,7 @@ quietly ignored by tools/browsers that don't know about it.
 Download node at [nodejs.org](http://nodejs.org) and install it, if you haven't already.
 
 ```sh
-npm install html-frontmatter --save
+npm install html-frontmatter-mini --save
 ```
 
 ## Usage
@@ -38,7 +45,7 @@ description: npmE works with GitHub!
 And code like this:
 
 ```js
-var fm = require('html-frontmatter')
+var fm = require('html-frontmatter-mini')
 var frontmatter = fm(fs.readFileSync('github.md', 'utf-8'))
 ```
 
@@ -114,8 +121,6 @@ And will return:
 
 - Boolean "true" and "false" strings are converted to Boolean.
 - Numeric strings are converted to Number.
-- Strings in [YMD-ish format](https://github.com/borgar/dateutil#dateutilparse-string-)
-are converted to Date objects.
 
 ### Under the Hood
 
@@ -124,7 +129,7 @@ of frontmatter as a property named `pattern`. You can use it to
 conditionally parse frontmatter:
 
 ```js
-var fm = require('html-frontmatter')
+var fm = require('html-frontmatter-mini')
 var content = "A string that doesn't have frontmatter in it"
 if (content.match(fm.pattern)) {
   // nope
@@ -150,7 +155,6 @@ npm test
 # ✓ does not include additional comments
 # ✓ coerces boolean strings into Booleans
 # ✓ coerces numeric strings into Numbers
-# ✓ coerces YMD-ish date strings into Dates
 # ✓ exposes its regex pattern as `pattern`
 # ✓ handles missing right-hand-value
 # ✓ handles shallow arrays
